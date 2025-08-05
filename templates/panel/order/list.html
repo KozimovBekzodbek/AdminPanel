@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>Document</title>
+        <style>
+#choice{
+
+    display: none;
+
+}
+
+        </style>
+    </head>
+    <body>
+
+        <ol class="list-group list-group-numbered">
+
+            {% for order in orders %}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">{{order.people}}</div>
+                    <span class="badge bg-primary rounded-pill">Active</span>
+                </div>
+
+                <a href="{% url 'order-update' order.pk %}">
+                    <button type="button" class="btn btn-success" style="margin-right: 10px;">Update</button>
+                </a>
+
+                <form action="{% url 'order-delete' order.pk %}" onsubmit="return Run()">
+                        {% csrf_token %}
+                        <button type="submit" >Delete</button>
+
+                    </form>
+
+            </li>
+
+            {% endfor %}
+            <br>
+            <br>
+            <hr>
+            <a href="{% url 'order-create' %}">
+                <button class="btn btn-primary" type="button">Create</button>
+            </a>
+
+        </ol>
+
+
+
+        <!--
+            <div id="choice">
+            <button onclick="get(False)" type="button" class="btn btn-dark">Cancel</button>
+            <button onclick="get(True)" type="button" class="btn btn-warning">Delete</button>
+            </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+        -->
+        <script>
+
+
+            function Run(){
+
+                return confirm("You sure ?");
+
+            }
+
+            /*
+
+                let choice = False;
+            let popup = document.getElementById('choice')
+
+            function run(){
+                popup.style.display = 'block'
+                popup.style.z_index = '1'
+                popup.style.position = 'absolute'
+                popup.style.top = '50%'
+                popup.style.left= '50%'
+                popup.style.tranform= 'translate(-50%,-50%)'
+            }
+            function get(a){
+                choice = a;
+
+            }
+
+            function delete(){
+                return choice
+
+            }
+
+                */
+        </script>
+
+    </body>
+</html>
